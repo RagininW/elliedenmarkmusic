@@ -47,6 +47,9 @@ Don't rewrite it without her say.
 ## Contact
 
 No form. The old WordPress form needed PHP; it was replaced with a `mailto:`
-link to `contact@elliedenmark.com`. That mailbox is hosted by Hostinger (MX
-records) — keep the MX/SPF records when moving DNS, and don't cancel the
-Hostinger email along with the hosting.
+link to `elliedenmarkmusic@gmail.com`.
+
+The domain has no mail of its own. The old `contact@elliedenmark.com` lived on
+Hostinger and was dropped with the move — don't put an @elliedenmark.com
+address on the site unless mail for the domain is set up again (e.g.
+Cloudflare Email Routing).
