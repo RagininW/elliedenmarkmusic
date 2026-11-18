@@ -1,0 +1,10 @@
+# The WordPress site used these paths. Keep them so old links and search
+# results still land on the right page.
+/about       /shows/    301
+/about/      /shows/    301
+/services    /collabs/  301
+/services/   /collabs/  301
+/home        /          301
+/home/       /          301
+/hello-world   /        301
+/hello-world/  /        301

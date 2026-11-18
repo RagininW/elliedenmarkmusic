@@ -1,0 +1,212 @@
+/* elliedenmark.com — one stylesheet for every page. No build step. */
+
+:root {
+  --blue: #007beb;          /* the name in the home hero */
+  --blue-bright: #0085ff;   /* bio, show titles */
+  --blue-soft: #4da3ff;     /* body copy on black */
+  --lavender: #d9e0fa;      /* bio band */
+  --black: #010101;
+  --white: #fff;
+  --grey: #a3a9b7;
+  --footer-ink: #3a3a3a;
+
+  --sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: Forum, Georgia, "Times New Roman", serif;
+
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1200px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--black);
+  color: var(--white);
+  font: 400 16px/1.65 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--blue-bright); outline-offset: 3px; }
+
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+.skip {
+  position: absolute; left: -9999px; top: 8px; z-index: 10;
+  background: var(--white); color: var(--black); padding: 8px 14px;
+}
+.skip:focus { left: 8px; }
+
+/* ---------- header: sits on top of each page's hero ---------- */
+
+.site-header { position: absolute; inset: 0 0 auto; z-index: 2; }
+.site-header .wrap {
+  display: flex; align-items: center; gap: 24px;
+  padding-top: 20px; padding-bottom: 20px;
+}
+.logo { flex: none; }
+.logo img { width: 56px; height: 56px; }
+.nav {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end;
+  gap: 6px 28px; margin-left: auto; font-size: 15px;
+}
+.nav a { color: var(--white); text-decoration: none; }
+.nav a:not(.btn):hover,
+.nav a[aria-current="page"] { text-decoration: underline; text-underline-offset: 6px; }
+
+.btn {
+  display: inline-block;
+  border: 1px solid currentColor; border-radius: 4px;
+  padding: 9px 18px; line-height: 1.2; text-decoration: none;
+  transition: background-color .15s, color .15s;
+}
+.btn:hover { background: var(--white); color: var(--black); }
+
+/* ---------- hero: full-bleed photo, title over it ---------- */
+
+.hero {
+  position: relative; isolation: isolate;
+  display: grid; place-items: center; align-content: center; gap: 16px;
+  min-height: clamp(340px, 55vh, 580px);
+  padding: 120px var(--gutter) 64px;
+  text-align: center;
+  background: var(--black);
+}
+.hero__bg {
+  position: absolute; inset: 0; z-index: -2;
+  width: 100%; height: 100%; object-fit: cover;
+}
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.15) 35%, rgba(0,0,0,.35));
+}
+.hero h1 {
+  margin: 0; font-weight: 400; line-height: 1;
+  font-size: clamp(44px, 8vw, 104px); letter-spacing: -.02em;
+}
+.hero--home { min-height: min(92vh, 920px); }
+.hero--home h1 { color: var(--blue); font-size: clamp(56px, 10vw, 128px); }
+.hero--home .hero__bg { object-position: 50% 30%; }
+.hero__link { color: var(--blue-soft); font-size: 15px; text-underline-offset: 4px; }
+.hero__link:hover { color: var(--white); }
+
+/* ---------- home ---------- */
+
+.bio {
+  background: var(--lavender); color: var(--blue-bright);
+  padding: clamp(56px, 8vw, 104px) 0;
+}
+.bio p {
+  max-width: 920px; margin: 0 auto 1em; text-align: center;
+  font-family: var(--serif); font-size: clamp(20px, 2.3vw, 30px); line-height: 1.4;
+}
+.bio p:last-child { margin-bottom: 0; }
+
+.section { padding: clamp(56px, 8vw, 104px) 0; }
+.section-title {
+  margin: 0 0 clamp(32px, 5vw, 56px); text-align: center;
+  font-weight: 400; font-size: clamp(28px, 3.5vw, 40px);
+}
+
+.albums {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 48px 32px; margin: 0; padding: 0; list-style: none;
+}
+/* four albums: 4 across, then 2×2, never 3+1 */
+@media (max-width: 1000px) { .albums { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px)  { .albums { grid-template-columns: 1fr; } }
+.album img { width: 100%; aspect-ratio: 1; object-fit: cover; background: #111; }
+.album h3 { margin: 18px 0 8px; font-weight: 400; font-size: 21px; }
+.album p { margin: 0; font-size: 15px; color: #d4d8e1; }
+
+.quote {
+  position: relative; isolation: isolate;
+  padding: clamp(110px, 18vw, 220px) var(--gutter);
+  text-align: center;
+}
+.quote::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: rgba(0,0,0,.45);
+}
+.quote blockquote {
+  max-width: 780px; margin: 0 auto;
+  font-family: var(--serif); font-size: clamp(20px, 2.4vw, 28px); line-height: 1.5;
+  text-shadow: 0 1px 12px rgba(0,0,0,.5);
+}
+
+/* ---------- shows ---------- */
+
+.show { padding: clamp(48px, 7vw, 88px) 0; }
+.show + .show { border-top: 1px solid #1c1c1c; }
+.show h2 {
+  max-width: 860px; margin: 0 0 12px;
+  color: var(--blue-bright); font-weight: 400; line-height: 1.25;
+  font-size: clamp(24px, 3vw, 34px);
+}
+.show p { max-width: 680px; margin: 0 0 32px; color: var(--blue-soft); }
+.gallery { columns: 3 220px; column-gap: 12px; }
+.gallery img { width: 100%; margin-bottom: 12px; break-inside: avoid; background: #111; }
+.gallery--single { columns: 1; max-width: 520px; }
+
+/* ---------- collabs and singles ---------- */
+
+.collab {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(24px, 5vw, 72px); align-items: center;
+  padding: clamp(40px, 6vw, 72px) 0;
+}
+.collab + .collab { border-top: 1px solid #1c1c1c; }
+.collab img { width: 100%; max-height: 640px; object-fit: cover; background: #111; }
+.collab h2 {
+  margin: 0 0 12px; font-family: var(--serif); font-weight: 400;
+  font-size: clamp(28px, 3.5vw, 42px); line-height: 1.15;
+}
+.collab p { max-width: 520px; margin: 0; color: var(--blue-soft); font-size: 17px; }
+
+/* ---------- contact ---------- */
+
+.contact { text-align: center; }
+.contact h2 {
+  max-width: 640px; margin: 0 auto 40px;
+  color: var(--blue-bright); font-family: var(--serif); font-weight: 400;
+  font-size: clamp(26px, 3.4vw, 40px); line-height: 1.25;
+}
+.label {
+  margin: 0 0 6px; color: var(--grey);
+  font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
+}
+.email {
+  display: inline-block; margin-bottom: 40px;
+  font-size: clamp(20px, 3vw, 30px); text-underline-offset: 6px;
+}
+.email:hover { color: var(--blue-soft); }
+
+/* ---------- 404 ---------- */
+
+.lost { min-height: 70vh; display: grid; place-items: center; align-content: center; gap: 20px; text-align: center; padding: 140px var(--gutter) 80px; }
+.lost h1 { margin: 0; font-weight: 400; font-size: clamp(36px, 6vw, 64px); color: var(--blue); }
+.lost p { margin: 0; color: var(--grey); }
+
+/* ---------- footer ---------- */
+
+.site-footer { background: var(--white); color: var(--footer-ink); font-size: 15px; }
+.site-footer .wrap {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 12px 24px; padding-top: 28px; padding-bottom: 28px;
+}
+.site-footer nav { display: flex; flex-wrap: wrap; gap: 6px 24px; }
+.site-footer a { text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.site-footer small { font-size: inherit; }
+
+/* ---------- small screens ---------- */
+
+@media (max-width: 720px) {
+  .site-header .wrap { flex-wrap: wrap; gap: 12px; padding-top: 16px; }
+  .logo img { width: 48px; height: 48px; }
+  .nav { margin-left: 0; width: 100%; justify-content: flex-start; gap: 6px 18px; font-size: 14px; }
+  .nav .btn { padding: 6px 12px; }
+  .hero { padding-top: 168px; }
+  .collab { grid-template-columns: 1fr; }
+  .collab img { max-height: 520px; }
+}
